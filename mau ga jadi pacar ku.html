@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mau Ga Jadi Pacar Aku?</title>
+    <style>
+        body {
+            background-color: #ffccff; /* Initial cute background color */
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            position: relative;
+            transition: background-color 0.5s ease;
+        }
+        #question {
+            font-size: 24px;
+            margin-bottom: 20px;
+            transition: color 0.5s ease;
+        }
+        #mau, #tidak {
+            padding: 15px 30px;
+            font-size: 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        #mau {
+            background-color: #ff99cc; /* Mau button color */
+        }
+        #tidak {
+            background-color: #ff6666; /* Tidak button color */
+        }
+        #cats {
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        #watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 50px;
+            animation: float 3s infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="question">Mau ga jadi pacar aku?</div>
+    <button id="mau">Mau</button>
+    <button id="tidak">Tidak</button>
+    <div id="cats">
+        <img id="catImage" src="https://files.catbox.moe/el3wal.jpeg" alt="Happy Cats" width="200">
+    </div>
+    <div id="watermark">ini cuma Farxly tes web</div>
+
+    <script>
+        let tidakCount = 0;
+
+        document.getElementById('mau').onclick = function() {
+            // Change theme to love
+            document.body.style.backgroundColor = '#ff99cc'; // Love background color
+            this.style.display = 'none'; // Hide 'mau' button after clicking
+            document.getElementById('tidak').style.display = 'none'; // Hide 'tidak' button
+            document.getElementById('question').innerText = "Yay! Makasi buat jadi pacar ku! ❤️";
+
+            // Create heart animations
+            for (let i = 0; i < 10; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerText = '❤️';
+                heart.style.left = Math.random() * 100 + 'vw'; // Random horizontal position
+                heart.style.top = Math.random() * 100 + 'vh'; // Random vertical position
+                document.body.appendChild(heart);
+                setTimeout(() => {
+                    heart.remove(); // Remove heart after some time
+                }, 3000);
+            }
+
+            // Change cat image to happy if "tidak" was clicked
+            if (tidakCount >= 3) {
+                document.getElementById('cats').innerHTML = '<img src="https://files.catbox.moe/el3wal.jpeg" alt="Happy Cats" width="200">';
+            }
+        };
+
+        document.getElementById('tidak').onclick = function() {
+            tidakCount++;
+            this.style.fontSize = (20 - tidakCount) + 'px'; // Make 'tidak' button smaller
+            this.innerText = "Tidak, tolong jangan pencet tidak";
+            if (tidakCount > 1) {
+                this.innerText = "Jangan pencet tidak, aku bilang jangan pencet tidak😡";
+            }
+            if (tidakCount > 3) {
+                this.style.display = 'none'; // Hide 'tidak' button
+                document.getElementById('mau').style.fontSize = (20 + tidakCount * 5) + 'px'; // Make 'mau' button bigger
+                document.getElementById('cats').innerHTML = '<img src="https://files.catbox.moe/skj3m8.jpeg" alt="Sad Cats" width="200">';
+            }
+        };
+    </script>
+
+</body>
+</html>
